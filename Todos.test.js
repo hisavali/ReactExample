@@ -1,9 +1,8 @@
-import { todo } from './Reducers/Todo';
+import { todos } from './Reducers/Todos';
 import deepFreeze from 'deep-freeze';
 
-
-it('Able to add Todo item',() => {
-    const stateBefore = {} 
+it('Able to add Todo items',() => {
+    const stateBefore = [] 
 
     const action = {
         type: 'ADD_TODO',
@@ -11,38 +10,49 @@ it('Able to add Todo item',() => {
         text: 'test'
     }
 
-    const stateAfter = {
+    const stateAfter = [{
         id: 0,
         text: 'test',
         completed: false
-    }
+    }]
 
     deepFreeze(stateBefore)
     deepFreeze(action)
 
-    expect(todo(stateBefore,action)).toEqual(stateAfter)
+    expect(todos(stateBefore,action)).toEqual(stateAfter)
 })
 
+
 it('Able to toggle Todo item',() => {
-    const stateBefore = {
+    const stateBefore = [{
         id: 0,
         text: 'test',
         completed: false
-    } 
+    },
+    {
+        id: 1,
+        text: 'shop',
+        completed: false
+    }]
 
     const action = {
         type: 'TOGGLE_TODO',
-        id: 0
+        id: 1
     }
 
-    const stateAfter = {
+    const stateAfter = [{
         id: 0,
         text: 'test',
+        completed: false
+    },
+    {
+        id: 1,
+        text: 'shop',
         completed: true
-    }
+    }]
 
     deepFreeze(stateBefore)
     deepFreeze(action)
 
-    expect(todo(stateBefore,action)).toEqual(stateAfter)
+    expect(todos(stateBefore,action)).toEqual(stateAfter)
 })
